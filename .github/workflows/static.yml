@@ -30,22 +30,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 18
+          node-version: 14
       - name: Install Angular CLI and dependencies
         run: |
-          npm install -g @angular/cli
-          npm install
+          npm i -g @angular/cli
+          npm i
       - name: Build Angular Application
-        run: ng build --base-href=/your-repo-name/  # Replace 'your-repo-name' with your repository name
+        run: ng build --base-href=https://pelan05.github.io/personal-cv/
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: dist
       - name: Deploy to GitHub Pages
-        run: |
-          git config --global user.name "Pedro Lanhoso"
-          git config --global user.email "pelan05@gmail.com"
-          echo "pelan05.github.io/personal-cv" > dist/CNAME  # If you have a custom domain
-          git add .
-          git commit -m "Deploy to GitHub Pages"
-          git push -f origin main  # Make sure to push to the correct branch
+        id: deployment
+        uses: actions/deploy-pages@v2
+        with:
+          artifact: dist
