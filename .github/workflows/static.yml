@@ -29,15 +29,23 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
-        with:
-          # Upload entire repository
-          path: '.'
+      - name: Checkout code
+      uses: actions/checkout@v3
+      - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 18
+      - name: Install Angular CLI and dependencies
+      run: |
+        npm install -g @angular/cli
+        npm install
+      - name: Build Angular Application
+      run: ng build --base-href=/your-repo-name/  # Replace 'your-repo-name' with your repository name
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
+      run: |
+        git config --global user.name "Your Name"
+        git config --global user.email "youremail@example.com"
+        echo "your-repo-name.github.io" > dist/CNAME  # If you have a custom domain
+        git add .
+        git commit -m "Deploy to GitHub Pages"
+        git push -f origin gh-pages  # Make sure to push to the correct branch
