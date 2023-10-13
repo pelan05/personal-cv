@@ -43,9 +43,9 @@ jobs:
         run: ng build --base-href=/your-repo-name/  # Replace 'your-repo-name' with your repository name
       - name: Deploy to GitHub Pages
         run: |
-          git config --global user.name "Your Name"
-          git config --global user.email "youremail@example.com"
-          echo "your-repo-name.github.io" > dist/CNAME  # If you have a custom domain
+          git config --global user.name "Pedro Lanhoso"
+          git config --global user.email "pelan05@gmail.com"
+          echo "pelan05.github.io/personal-cv" > dist/CNAME  # If you have a custom domain
           git add .
           git commit -m "Deploy to GitHub Pages"
-          git push -f origin gh-pages  # Make sure to push to the correct branch
+          git push -f origin main  # Make sure to push to the correct branch
